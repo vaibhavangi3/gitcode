@@ -5,8 +5,11 @@ struct node{
     node *prev,*next;
 
 }*head, *last;
+
 void createlist(int n);
 void printlistbeg();
+void insertatbeg(int n);
+void insertatend(int n);
 void printlistend();
 int main()
 {
@@ -16,6 +19,24 @@ int main()
     cout<<"Enter the no of nodes"<<endl;
     cin>>n;
     createlist(n);
+    int x;
+    cout<<"Enter your choice for insertion"<<endl;
+    cout<<"Enter 1. to insert at beg"<<endl;
+    cout<<"Enter 2. to insert at end"<<endl;
+    cin>>x;
+    if(x==1)
+    {
+
+        cout<<"insertion at beg... started........."<<endl;
+        insertatbeg(n);
+    }
+    else
+    {
+
+        cout<<"insertion at end... started........."<<endl;
+        insertatend(n);
+    }
+
     cout<<"List created.... Successfully"<<endl;
     int choice;
     cout<<"Enter your choice "<<endl;
@@ -49,7 +70,7 @@ void createlist(int n)
         last=head;
         for(int i=2;i<=n;i++)
         {
-        newnode=(struct node *)malloc(sizeof(struct node));
+            newnode=(struct node *)malloc(sizeof(struct node));
             if(newnode!=NULL)
             {
 
@@ -115,5 +136,54 @@ void printlistend()
             temp=temp->prev;
             n++;
         }
+    }
+}
+void insertatbeg(int n)
+{
+    struct node *newnode, *temp;
+    int data;
+    if(head==NULL)
+    {
+
+    cout<<"error in memory";
+    exit(0);
+    }
+     else
+     {
+        cout<<"enter the data for newnode"<<endl;
+        cin>>data;
+        newnode=(struct node *)malloc(sizeof(struct node));
+        newnode->data=data;
+        newnode->next=head;
+        newnode->prev=NULL;
+        head->prev=newnode;
+        head=newnode;
+        temp=head;
+        while(temp!=NULL)
+        {
+            temp=temp->next;
+        }
+
+    }
+
+}
+void insertatend(int n)
+{
+    struct node *newnode;
+    if(head==NULL)
+    {
+        cout<<"Error in allocation";
+    }
+    else
+    {
+        int data;
+        cout<<"Enter the data to insert at last"<<endl;
+        cin>>data;
+        newnode=(struct node *)malloc(sizeof(struct node));
+        newnode->data=data;
+        newnode->next=NULL;
+        newnode->prev=last;
+        last->next=newnode;
+        last=newnode;
     }
 }
